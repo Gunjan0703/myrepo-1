@@ -1,0 +1,24 @@
+name : version repo workflow
+on:
+  push:
+    branches: -main
+    paths: 
+     - '**.html'
+     - '**.css'
+jobs:
+  validate-html:
+   runs-on: ubuntu latest
+   steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+    
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: '18'
+
+      - name: install html hint
+        run: npm install -g htmlhint
+
+      - name: run htmlhint on idex.html
+        run: htmlhint index.html
